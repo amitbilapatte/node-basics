@@ -194,3 +194,84 @@ Projects
 Zerodha end to end
 Zapier end to end
 Real world open source projects
+
+## SIGMA BATCH CURRICULUM
+
+## Full Stack Web Development | MERN Stack
+## Frontend (HTML,CSS,Javascript, React)
+What is Web?
+Markup with HTML & JSX
+Flexbox, Grid & Responsiveness
+Bootstrap Layouts & Components
+Frontend UI Framework - Tailwind CLI
+Core JavaScript & Object Orientation
+Async JS - promises, async/await
+DOM & Events
+Event Bubbling & Delegation
+Ajax, Axios & fetch API
+Functional React Components
+Props & State Management
+Dynamic Component Styling
+Functions as Props
+Hooks in React : useState, useEffect
+Material UI
+Custom Hooks
+Supplement: Redux & Redux Toolkit
+Version Control: Git & Github
+Backend (NodeJS, MongoDB, SQL)
+Databases (SQL & No SQL)
+Mongo Relationships
+Dive deep into Mongo
+Express, Nodejs & npm
+REST APIs
+Routing, cookies & session
+Middlewares deep dive
+EJS Templating
+MVC Architecture
+Client & server side Validations
+Error Handling & flash-connect
+Authorization
+Cloudinary & MapBox with Geocoding
+Deployment with Render
+More Topics like AWS, WebRTC in Project based learning (after batch completion)
+
+## Projects
+Spotify Player Replica (CSS)
+Simon Says Game (JS)
+Todo List App (JS)
+Real-time Weather App (React & Material UI)
+Airbnb (Full Stack Major Project with Deployment)
+Zoom Full Stack with Video Conferencing (after batch completion)
+More Full Stack Projects like Zerodha etc. (after batch completion)
+
+## Data Structures and Algorithms
+
+Programming with Java
+Flowcharts & Pseudocode
+Variables & Data Types
+Operators
+Conditional Statements
+Loops (Flow Control)
+Patterns
+Functions & Methods
+Strings
+Functions & Methods
+Data Structures & Algorithms
+Sorting Algorithms
+Bit Manipulation
+Object Orientation (OOPs)
+Recursion & Backtracking
+Divide & Conquer
+ArrayLists
+Linked Lists
+Stacks & Queues
+Binary Trees
+Binary Search Trees
+Advanced DSA
+HashMaps & HashSets
+Heaps (Priority Queue)
+Tries
+Graph
+Greedy Algorithms
+Dynamic Programming
+Segment Trees

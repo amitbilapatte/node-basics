@@ -46,7 +46,7 @@ const server = http.createServer((req, res) => {
       res.end();
       break;
   }
-  // res.end(product);
+  res.end();
 });
 
 server.listen("8000");
