@@ -64,6 +64,11 @@ server.get("/demo", (req, res) => {
   // res.send(products[1].thumbnail);
   // res.json(products[1].thumbnail);
   res.sendFile("/home/lenovo/Desktop/AMIT/udemy/node-basics/favicon .ico");
+  const server = express();
+});
+
+server.get("/products", (req, res) => {
+  res.json(products);
 });
 
 server.listen("8000");
