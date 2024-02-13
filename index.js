@@ -38,6 +38,13 @@ const Authenticate = (req, res, next) => {
 server.get("/", Auth, (req, res) => {
   res.json({ type: "GET" });
 });
+server.get("/product", (req, res) => {
+  res.json({ type: "GET product" });
+});
+server.get("/product/:id", (req, res) => {
+  console.log(req.params);
+  res.json({ type: `Get Product ${req.params.id}` });
+});
 server.post("/", Authenticate, (req, res) => {
   res.json({ type: "POST" });
 });
