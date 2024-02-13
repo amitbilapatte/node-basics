@@ -21,12 +21,12 @@ const Auth = (req, res, next) => {
     res.send(401);
   }
 };
-server.use(Auth);
+// server.use(Auth);
 
-server.get("/", (req, res) => {
+server.get("/", Auth, (req, res) => {
   res.json({ type: "GET" });
 });
-server.post("/", (req, res) => {
+server.post("/", Auth, (req, res) => {
   res.json({ type: "POST" });
 });
 server.put("/", (req, res) => {
