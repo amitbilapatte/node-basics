@@ -7,6 +7,22 @@ const products = data.products;
 
 const server = express();
 
+server.use((req, res, next) => {
+  console.log(req.url);
+  console.log(req.method);
+  next();
+});
+
+const Auth = (req, res, next) => {
+  if (req.query.q) {
+    console.log(req.query);
+    next();
+  } else {
+    res.send(401);
+  }
+};
+server.use(Auth);
+
 server.get("/", (req, res) => {
   res.json({ type: "GET" });
 });
