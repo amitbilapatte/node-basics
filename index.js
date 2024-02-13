@@ -1,52 +1,69 @@
-const http = require("http");
+const express = require("express");
 const fs = require("fs");
 
 const index = fs.readFileSync("index.html", "utf-8");
 const data = JSON.parse(fs.readFileSync("data.json", "utf-8"));
 const products = data.products;
 
-const server = http.createServer((req, res) => {
+const server = express();
+
+server.use(express.json());
+
+server.use(express.static("public"));
+
+server.use((req, res, next) => {
   console.log(req.url);
+  console.log(req.method);
+  next();
+});
 
-  if (req.url.startsWith("/product")) {
-    const id = req.url.split("/")[2];
-    const product = products.find((p) => p.id === +id);
-    res.setHeader("Content-Type", "text/html");
-    let modifiedIndex = index
-      .replace("**title**", product.title)
-      .replace("**price**", product.price)
-      .replace("**source**", product.thumbnail)
-      .replace("**brand**", product.brand);
-    return res.end(modifiedIndex);
+const Auth = (req, res, next) => {
+  if (req.query.q) {
+    console.log(req.query);
+    next();
+  } else {
+    res.send(401);
   }
+};
+const Authenticate = (req, res, next) => {
+  if (req.body.q) {
+    console.log(req.body);
+    next();
+  } else {
+    res.send(401);
+  }
+};
+// server.use(Auth);
 
-  switch (req.url) {
-    case "/":
-      res.setHeader("Content-Type", "text/html");
-      res.end(index);
-      break;
-    case "/api":
-      res.setHeader("Content-Type", "application/json");
-      res.end(JSON.stringify(data));
-      break;
-    case "/product":
-      console.log("hi");
-      console.log(req.url.split("/"));
-      console.log(req.url);
-      res.setHeader("Content-Type", "text/html");
-      let modifiedIndex = index
-        .replace("**title**", product[productNumber].title)
-        .replace("**price**", product[productNumber].price)
-        .replace("**source**", product[productNumber].thumbnail)
-        .replace("**brand**", product[productNumber].brand);
-      res.end(modifiedIndex);
-      break;
-    default:
-      res.writeHead(405);
-      res.end();
-      break;
-  }
-  res.end();
+server.get("/", Auth, (req, res) => {
+  res.json({ type: "GET" });
+});
+server.get("/product", (req, res) => {
+  res.json({ type: "GET product" });
+});
+server.get("/product/:id", (req, res) => {
+  console.log(req.params);
+  res.json({ type: `Get Product ${req.params.id}` });
+});
+server.post("/", Authenticate, (req, res) => {
+  res.json({ type: "POST" });
+});
+server.put("/", (req, res) => {
+  res.json({ type: "PUT" });
+});
+server.patch("/", (req, res) => {
+  res.json({ type: "Patch" });
+});
+server.delete("/", (req, res) => {
+  res.json({ type: "delete" });
+});
+
+server.get("/demo", (req, res) => {
+  // res.send("hello");
+  // res.send("./favicon.ico");
+  // res.send(products[1].thumbnail);
+  // res.json(products[1].thumbnail);
+  res.sendFile("/home/lenovo/Desktop/AMIT/udemy/node-basics/favicon .ico");
 });
 
 server.listen("8000");
