@@ -11,60 +11,43 @@ server.use(express.json());
 
 server.use(express.static("public"));
 
-server.use((req, res, next) => {
-  console.log(req.url);
-  console.log(req.method);
-  next();
+//CREATE /POST
+server.post("/add-product", (req, res) => {
+  console.log(req.body);
+  products.push(req.body);
+  res.json(req.body);
 });
 
-const Auth = (req, res, next) => {
-  if (req.query.q) {
-    console.log(req.query);
-    next();
-  } else {
-    res.send(401);
-  }
-};
-const Authenticate = (req, res, next) => {
-  if (req.body.q) {
-    console.log(req.body);
-    next();
-  } else {
-    res.send(401);
-  }
-};
-// server.use(Auth);
+//READ /Get /product/:id
+server.get("/products/:id", (req, res) => {
+  const id = +req.params.id;
+  const product = products.find((p) => p.id === id);
 
-server.get("/", Auth, (req, res) => {
-  res.json({ type: "GET" });
-});
-server.get("/product", (req, res) => {
-  res.json({ type: "GET product" });
-});
-server.get("/product/:id", (req, res) => {
-  console.log(req.params);
-  res.json({ type: `Get Product ${req.params.id}` });
-});
-server.post("/", Authenticate, (req, res) => {
-  res.json({ type: "POST" });
-});
-server.put("/", (req, res) => {
-  res.json({ type: "PUT" });
-});
-server.patch("/", (req, res) => {
-  res.json({ type: "Patch" });
-});
-server.delete("/", (req, res) => {
-  res.json({ type: "delete" });
+  product ? res.json(product) : res.json({ error: "invalid id" });
 });
 
-server.get("/demo", (req, res) => {
-  // res.send("hello");
-  // res.send("./favicon.ico");
-  // res.send(products[1].thumbnail);
-  // res.json(products[1].thumbnail);
-  res.sendFile("/home/lenovo/Desktop/AMIT/udemy/node-basics/favicon .ico");
-  const server = express();
+//UPDATE /PUT /product/:id //To update whole object with new body
+server.put("/products/:id", (req, res) => {
+  const id = +req.params.id;
+  const productIndex = products.findIndex((p) => p.id === id);
+  products.splice(productIndex, 1, { ...req.body, id: id });
+  res.status(201).json(req.body);
+});
+//UPDATE /PATCH /product/:id //To only update few params in object from body
+server.patch("/products/:id", (req, res) => {
+  const id = +req.params.id;
+  const productIndex = products.findIndex((p) => p.id === id);
+  const product = products[[productIndex]];
+  products.splice(productIndex, 1, { ...product, ...req.body });
+  res.status(201).json(req.body);
+});
+
+//DELETE /delete /product/:id
+server.delete("/products/:id", (req, res) => {
+  const id = +req.params.id;
+  const productIndex = products.findIndex((p) => p.id === id);
+  products.splice(productIndex, 1);
+  res.status(200).json("mission successful");
 });
 
 server.get("/products", (req, res) => {
