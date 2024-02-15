@@ -4,10 +4,12 @@ const index = fs.readFileSync("index.html", "utf-8");
 const productController = require("./controller/product");
 
 const server = express();
+const productRouter = express.Router();
 server.use(express.json());
 server.use(express.static("public"));
+server.use("/p", productRouter);
 
-server
+productRouter
   .get("/products", productController.getAll)
   .post("/add-product", productController.create)
   .get("/products/:id", productController.get)
