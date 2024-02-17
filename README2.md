@@ -50,3 +50,10 @@ Then select the appropriate tab below based on the result:
 - sudo systemctl status mongod // to check mongodb srver status
 - sudo systemctl stop mongod // to stop
 - sudo systemctl enable mongod // after this command we dont need to start mongodb everytime, its server is on all time till we manually stop it.
+
+## Uninstall Mongodb
+
+- sudo service mongod stop // Stop MongoDB
+- sudo apt-get purge "mongodb-org*" // Remove Packages
+- sudo rm -r /var/log/mongodb // Remove Data Directories
+- sudo rm -r /var/lib/mongodb
