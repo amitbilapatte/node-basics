@@ -57,3 +57,21 @@ Then select the appropriate tab below based on the result:
 - sudo apt-get purge "mongodb-org*" // Remove Packages
 - sudo rm -r /var/log/mongodb // Remove Data Directories
 - sudo rm -r /var/lib/mongodb
+
+## sample Mogo commands
+
+- select database ecommerce :`use ecommerce`
+- create table products and add one keyvalue pair: `db.products.insertOne({"title":"iphone"})`
+- add multiple objects : `db.products.insertMany([{}"title:"iphone"},{"brand":"Apple"}])`
+- see table: `db.products.find()` or `db.products.find().pretty()`
+- see only one first record matching the description : `db.products.findOne({rating: {$eq:4.5}})` OR `db.products.findOne({rating: 4.5})`
+- see all records matching the description : `db.products.find({rating: 4.5})`
+- see particular record with multiple conditions: `db.products.find({rating: {$gt:4.5}},{id:{$gt:1}})`
+- see particular record and `and` operator : `db.products.find({$and:[{rating: {$gt:4.5}},{id:{$gt:1}}]})`
+- see particular record and `or` operator : `db.products.find({$or:[{rating: {$gt:4.5}},{id:{$gt:3}}]})`
+- see sort result in ascending : `db.products.find({$or:[{rating: {$gt:4.5}},{id:{$gt:3}}]}).sort({"price":1})`
+- see sort result in descending : `db.products.find({$or:[{rating: {$gt:4.5}},{id:{$gt:3}}]}).sort({"price":-1})`
+- to get count : `db.products.countDocuments()`
+- to get count : `db.products.countDocuments({"price":{$gt:600}})`
+- to get only title of all records who match given condition: `db.products.find({"price":{$gt:600}},{"title":1,"price":1})` : here "title":1 means it will return titles for matching records, same for price
+- **UPDATE** : `db.products.updateOne({"id":1},{$set:{"amount":999}})`: this command will update value of amount in records where id is 1, if amount is not present then it will create new field in that record.
