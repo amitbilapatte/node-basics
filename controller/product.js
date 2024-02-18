@@ -8,13 +8,15 @@ const server = express();
 server.use(express.json());
 
 exports.create = async (req, res) => {
-  const product = new Product();
-  product.title = "PhoneXII";
-  product.price = "1399";
-  product.rating = "4.8";
-  product.save((err, doc) => {
-    console.log(err, doc);
-  });
+  const product = new Product(req.body);
+  product
+    .save()
+    .then((result) => {
+      res.status(201).json(result);
+    })
+    .catch((err) => {
+      res.status(400).json(err);
+    });
 };
 
 exports.get = (req, res) => {
