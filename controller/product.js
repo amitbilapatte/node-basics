@@ -1,17 +1,22 @@
 const express = require("express");
 const fs = require("fs");
+const model = require("../model/product");
+const Product = model.Product;
 
 const server = express();
 
 server.use(express.json());
 
-const data = JSON.parse(fs.readFileSync("data.json", "utf-8"));
-
-const products = data.products;
-
-exports.create = (req, res) => {
-  products.push(req.body);
-  res.json(req.body);
+exports.create = async (req, res) => {
+  const product = new Product(req.body);
+  product
+    .save()
+    .then((result) => {
+      res.status(201).json(result);
+    })
+    .catch((err) => {
+      res.status(400).json(err);
+    });
 };
 
 exports.get = (req, res) => {
