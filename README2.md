@@ -75,3 +75,4 @@ Then select the appropriate tab below based on the result:
 - to get count : `db.products.countDocuments({"price":{$gt:600}})`
 - to get only title of all records who match given condition: `db.products.find({"price":{$gt:600}},{"title":1,"price":1})` : here "title":1 means it will return titles for matching records, same for price
 - **UPDATE** : `db.products.updateOne({"id":1},{$set:{"amount":999}})`: this command will update value of amount in records where id is 1, if amount is not present then it will create new field in that record.
+- **UPSERT** : `db.products.updateOne({"id:7},{$set:{"price":999}},{"upsert":true})` here upsert option needs boolean true/false value
