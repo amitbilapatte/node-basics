@@ -1,13 +1,16 @@
+require("dotenv").config();
 const express = require("express");
 const fs = require("fs");
 
 const server = express();
+const mongoose = require("mongoose");
+mongoose.connect("mongodb://127.0.0.1:27017/test");
 
 //import routes
 const productRoute = require("./routes/product");
 const cartRoute = require("./routes/cart");
-
 const index = fs.readFileSync("index.html", "utf-8");
+console.log("env", process.env.DB_PASSWORD);
 
 //middleware
 server.use(express.json());
