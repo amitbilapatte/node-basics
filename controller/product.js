@@ -15,17 +15,19 @@ exports.create = async (req, res) => {
       res.status(201).json(result);
     })
     .catch((err) => {
-      res.status(400).json(err);
+      res.status(400).json({ message: err.message });
     });
 };
 
 exports.get = async (req, res) => {
   const id = +req.params.id;
+  // const id = req.params.id;
   try {
     const product = await Product.find({ id: id });
+    // const product = await Product.findById(id);
     res.status(200).json(product);
   } catch (err) {
-    res.status(400).json(err.message);
+    res.status(400).json({ message: err.message });
   }
 };
 
@@ -39,34 +41,38 @@ exports.getAll = async (req, res) => {
 };
 
 exports.replace = async (req, res) => {
+  const id = +req.params.id;
+  // const id = req.params.id;
   try {
-    const id = +req.params.id;
-    const body = req.body;
-    const product = await Product.replaceOne({ id: id }, body);
+    const product = await Product.replaceOne({ id: id }, req.body);
+    // const product = await Product.findOneAndReplace({ id: id }, req.body, { new: true });
     res.status(201).json(product);
   } catch (err) {
-    res.status(400).json(err.message);
+    res.status(400).json({ message: err.message });
   }
 };
 
 exports.update = async (req, res) => {
+  const id = +req.params.id;
+  // const id = req.params.id;
   try {
-    const id = +req.params.id;
-    const body = req.body;
-    const product = await Product.updateOne({ id: id }, { $set: body });
+    const product = await Product.updateOne({ id: id }, { $set: req.body });
+    // const product = await Product.findByIdAndUpdate({ id: id }, req.body, { new: true });
     res.status(201).json(product);
   } catch (err) {
-    res.status(400).json(err.message);
+    res.status(400).json({ message: err.message });
   }
 };
 
 exports.remove = async (req, res) => {
+  const id = +req.params.id;
+  // const id = req.params.id;
   try {
-    const id = +req.params.id;
     const product = await Product.deleteOne({ id: id });
+    // const product = await Product.findByIdAndDelete({ id: id });
     res.status(201).json(product);
-  } catch (error) {
-    res.status(400).json(error.message);
+  } catch (err) {
+    res.status(400).json({ message: err.message });
   }
 };
 
