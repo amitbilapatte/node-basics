@@ -19,37 +19,55 @@ exports.create = async (req, res) => {
     });
 };
 
-exports.get = (req, res) => {
+exports.get = async (req, res) => {
   const id = +req.params.id;
-  const product = products.find((p) => p.id === id);
-
-  product ? res.json(product) : res.json({ error: "invalid id" });
+  try {
+    const product = await Product.find({ id: id });
+    res.status(200).json(product);
+  } catch (err) {
+    res.status(400).json(err.message);
+  }
 };
 
-exports.getAll = (req, res) => {
-  res.json(products);
+exports.getAll = async (req, res) => {
+  try {
+    const products = await Product.find();
+    res.status(200).json(products);
+  } catch (err) {
+    res.status(400).json({ message: err.message });
+  }
 };
 
-exports.replace = (req, res) => {
-  const id = +req.params.id;
-  const productIndex = products.findIndex((p) => p.id === id);
-  products.splice(productIndex, 1, { ...req.body, id: id });
-  res.status(201).json(req.body);
+exports.replace = async (req, res) => {
+  try {
+    const id = +req.params.id;
+    const body = req.body;
+    const product = await Product.replaceOne({ id: id }, body);
+    res.status(201).json(product);
+  } catch (err) {
+    res.status(400).json(err.message);
+  }
 };
 
-exports.update = (req, res) => {
-  const id = +req.params.id;
-  const productIndex = products.findIndex((p) => p.id === id);
-  const product = products[[productIndex]];
-  products.splice(productIndex, 1, { ...product, ...req.body });
-  res.status(201).json(req.body);
+exports.update = async (req, res) => {
+  try {
+    const id = +req.params.id;
+    const body = req.body;
+    const product = await Product.updateOne({ id: id }, { $set: body });
+    res.status(201).json(product);
+  } catch (err) {
+    res.status(400).json(err.message);
+  }
 };
 
-exports.remove = (req, res) => {
-  const id = +req.params.id;
-  const productIndex = products.findIndex((p) => p.id === id);
-  products.splice(productIndex, 1);
-  res.status(200).json("mission successful");
+exports.remove = async (req, res) => {
+  try {
+    const id = +req.params.id;
+    const product = await Product.deleteOne({ id: id });
+    res.status(201).json(product);
+  } catch (error) {
+    res.status(400).json(error.message);
+  }
 };
 
 exports;
