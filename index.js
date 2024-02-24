@@ -1,9 +1,10 @@
 require("dotenv").config();
 const express = require("express");
 const fs = require("fs");
+const cors = require("cors");
+const mongoose = require("mongoose");
 
 const server = express();
-const mongoose = require("mongoose");
 
 //db connection
 main().catch((err) => console.log(err));
@@ -20,6 +21,7 @@ const index = fs.readFileSync("index.html", "utf-8");
 console.log("env", process.env.DB_PASSWORD);
 
 //middleware
+server.use(cors());
 server.use(express.json());
 server.use(express.static("public"));
 
@@ -27,4 +29,6 @@ server.use(express.static("public"));
 server.use("/products", productRoute.productRouter);
 server.use("/carts", cartRoute.cartRouter);
 
-server.listen("8000");
+server.listen(8000, () => {
+  console.log("Server is running on port 8000");
+});
