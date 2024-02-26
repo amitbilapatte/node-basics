@@ -34,9 +34,9 @@
 
 ## Init System
 
-To run and manage your mongod process, you will be using your operating system's built-in init system. Recent versions of Linux tend to use systemd (which uses the systemctl command), while older versions of Linux tend to use System V init (which uses the service command).
+- To run and manage your mongod process, you will be using your operating system's built-in init system. Recent versions of Linux tend to use systemd (which uses the systemctl command), while older versions of Linux tend to use System V init (which uses the service command).
 
-If you are unsure which init system your platform uses, run the following command:
+- If you are unsure which init system your platform uses, run the following command:
 
 - `ps --no-headers -o comm 1`
 
