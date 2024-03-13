@@ -66,6 +66,7 @@ exports.update = async (req, res) => {
 
 exports.remove = async (req, res) => {
   const id = +req.params.id;
+  console.log(id);
   // const id = req.params.id;
   try {
     const product = await Product.deleteOne({ id: id });
@@ -75,5 +76,16 @@ exports.remove = async (req, res) => {
     res.status(400).json({ message: err.message });
   }
 };
+
+// exports.remove = async (req, res) => {
+//   console.log(req);
+//   const id = req.params.id;
+//   try {
+//     const product = await Product.deleteOne({ _id: id });
+//     res.status(201).json(product);
+//   } catch (err) {
+//     res.status(400).json({ message: err.message });
+//   }
+// };
 
 exports;
